@@ -24,7 +24,7 @@ if __name__ == '__main__':
     masks_tensor = list()
     for image in images:
         #Las imágenes están en jpg, por lo que las convertimos a png
-        dd = PIL.Image.open(f'/home/22061506mercedes/ComputerVision_UNET/data_flood/Image{image}')
+        dd = PIL.Image.open(f'/home/22061506mercedes/ComputerVision_UNET/data_flood/Image/{image}')
         #Lo pasamos a tensor
         tt = torchvision.transforms.functional.pil_to_tensor(dd)
         tt = torchvision.transforms.functional.resize(tt, (100, 100))
@@ -38,7 +38,7 @@ if __name__ == '__main__':
         image_tensor.append(tt)
         
         mask = image.replace('.jpg', '.png')
-        dd = PIL.Image.open(f'/home/22061506mercedes/ComputerVision_UNET/data_flood/Mask{mask}')
+        dd = PIL.Image.open(f'/home/22061506mercedes/ComputerVision_UNET/data_flood/Mask/{mask}')
         mm = torchvision.transforms.functional.pil_to_tensor(dd)
         mm = mm.repeat(3, 1, 1)
         mm = torchvision.transforms.functional.resize(mm, (100, 100))
