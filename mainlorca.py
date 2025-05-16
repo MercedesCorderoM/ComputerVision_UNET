@@ -100,6 +100,20 @@ if __name__ == '__main__':
     jaccard_list.append(sum(jaccard_epoch) / len(jaccard_epoch))
     loss_list.append(running_loss)
     
+    print(f'epoch: {epoch}, loss: {running_loss}, jaccard: {sum(jaccard_epoch) / len(jaccard_epoch)}')
+    
+    # Guardamos el modelo
+    torch.save(unet.state_dict(), 'unet.pth')
+    # Guardamos la lista de pérdidas y la lista de jaccard
+    torch.save(loss_list, 'loss_list.pth')
+    torch.save(jaccard_list, 'jaccard_list.pth')
+    # Guardamos el optimizador
+    torch.save(optim.state_dict(), 'optim.pth')
+    # Guardamos el optimizador
+    torch.save(cross_entropy.state_dict(), 'cross_entropy.pth')
+    # Guardamos el optimizador
+    torch.save(unet.state_dict(), 'unet.pth')
+        
     
 
     
