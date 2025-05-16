@@ -15,8 +15,8 @@ from torchvision import models
 if __name__ == '__main__':
     
     #Cargamos las imágenes y las máscaras
-    images = os.listdir('C:/Users/merce/OneDrive/Documentos/MÓDULO 6. VISIÓN POR COMPUTACIÓN/data/data_flood/Image/')
-    masks = os.listdir('C:/Users/merce/OneDrive/Documentos/MÓDULO 6. VISIÓN POR COMPUTACIÓN/data/data_flood/Mask/')
+    images = os.listdir('C:/Users/merce/OneDrive/Documentos/MÓDULO 6. VISIÓN POR COMPUTACIÓN/ComputerVision_UNET/data_flood/Image/')
+    masks = os.listdir('C:/Users/merce/OneDrive/Documentos/MÓDULO 6. VISIÓN POR COMPUTACIÓN/ComputerVision_UNET/data_flood/Mask/')
 
     print(len(images), len(masks))
 
@@ -24,7 +24,7 @@ if __name__ == '__main__':
     masks_tensor = list()
     for image in images:
         #Las imágenes están en jpg, por lo que las convertimos a png
-        dd = PIL.Image.open(f'C:/Users/merce/OneDrive/Documentos/MÓDULO 6. VISIÓN POR COMPUTACIÓN/data/data_flood/Image/{image}')
+        dd = PIL.Image.open(f'C:/Users/merce/OneDrive/Documentos/MÓDULO 6. VISIÓN POR COMPUTACIÓN/ComputerVision_UNET/data_flood/Image/{image}')
         #Lo pasamos a tensor para 
         tt = torchvision.transforms.functional.pil_to_tensor(dd)
         tt = torchvision.transforms.functional.resize(tt, (100, 100))
