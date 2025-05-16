@@ -1,3 +1,4 @@
+from unet import UNet # Importamos la clase UNet desde el archivo unet.py
 import torchvision
 import torch
 import torch.nn as nn
@@ -10,6 +11,7 @@ from torch.utils.data.dataset import Dataset
 from torch.utils.data import Dataset
 from torchvision import transforms
 from torchvision import models
+
 
 
 if __name__ == '__main__':
@@ -37,9 +39,11 @@ if __name__ == '__main__':
 
         image_tensor.append(tt)
         
+        #Leemos la máscara y la convertimos a tensor
         mask = image.replace('.jpg', '.png')
         dd = PIL.Image.open(f'/home/22061506mercedes/ComputerVision_UNET/data_flood/Mask/{mask}')
         mm = torchvision.transforms.functional.pil_to_tensor(dd)
+        #Replicamos el único canal de la máscara para que tenga 3 canales
         mm = mm.repeat(3, 1, 1)
         mm = torchvision.transforms.functional.resize(mm, (100, 100))
         mm = mm[:1, :, :]
@@ -51,7 +55,7 @@ if __name__ == '__main__':
 
         masks_tensor.append(mm)
         
-        image_tensor = torch.cat(image_tensor)
+    image_tensor = torch.cat(image_tensor)
     print(image_tensor.shape)
 
     masks_tensor = torch.cat(masks_tensor)
@@ -83,6 +87,7 @@ if __name__ == '__main__':
     
     
         for image, target in zip(dataloader_train_image, dataloader_train_target):
+            
             pred = unet(image)
 
             _, pred_unflatten = torch.max(pred, dim=1)
