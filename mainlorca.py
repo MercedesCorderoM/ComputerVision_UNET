@@ -11,6 +11,7 @@ from torch.utils.data.dataset import Dataset
 from torch.utils.data import Dataset
 from torchvision import transforms
 from torchvision import models
+import matplotlib.pyplot as plt
 
 
 
@@ -115,19 +116,33 @@ if __name__ == '__main__':
     torch.save(unet.state_dict(), 'unet.pth')
     
     # Pintamos la lista de pérdidas y la lista de jaccard
-    import matplotlib.pyplot as plt
     plt.plot(loss_list)
     plt.title('Loss')
     plt.xlabel('Epoch')
     plt.ylabel('Loss')
     plt.show()
+    
+    # Vamos a guardar el modelo entrenado
+    path_res = '/home/22061506mercedes/ComputerVision_UNET/'
+    #Vamos a guardar la grafica de loss vs epochs
+    plt.figure(figsize=(8, 5))
+    plt.plot(loss_list, label='Loss')
+    plt.xlabel('Epoch')
+    plt.ylabel('Loss')
+    plt.title('Loss vs Epochs')
+    plt.grid()
+    plt.savefig(path_res + '/loss_vs_epochs.png')
+    plt.close()  # Close the plot to free up memory
+    
     # Guardamos la lista de pérdidas y la lista de jaccard
     torch.save(loss_list, 'loss_list.pth')
     plt.plot(jaccard_list)
     plt.title('Jaccard')
     plt.xlabel('Epoch')
     plt.ylabel('Jaccard')
-    plt.show()
+    plt.grid()
+    plt.savefig(path_res + '/jaccard_vs_epochs.png')
+    plt.close()  # Close the plot to free up memory
     #Guardamos el modelo
     torch.save(unet.state_dict(), 'unet.pth')
     # Guardamos la lista de pérdidas y la lista de jaccard
@@ -137,9 +152,7 @@ if __name__ == '__main__':
     plt.xlabel('Epoch')
     plt.ylabel('Jaccard')
     plt.show()
-
         
         
     
-
     
