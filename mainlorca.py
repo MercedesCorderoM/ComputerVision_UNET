@@ -71,7 +71,7 @@ if __name__ == '__main__':
     
     loss_list = list()
     jaccard_list = list()
-    for epoch in range(10):
+    for epoch in range(25):
         running_loss = 0.
         unet.train()
 
@@ -113,6 +113,32 @@ if __name__ == '__main__':
     torch.save(cross_entropy.state_dict(), 'cross_entropy.pth')
     # Guardamos el optimizador
     torch.save(unet.state_dict(), 'unet.pth')
+    
+    # Pintamos la lista de pérdidas y la lista de jaccard
+    import matplotlib.pyplot as plt
+    plt.plot(loss_list)
+    plt.title('Loss')
+    plt.xlabel('Epoch')
+    plt.ylabel('Loss')
+    plt.show()
+    # Guardamos la lista de pérdidas y la lista de jaccard
+    torch.save(loss_list, 'loss_list.pth')
+    plt.plot(jaccard_list)
+    plt.title('Jaccard')
+    plt.xlabel('Epoch')
+    plt.ylabel('Jaccard')
+    plt.show()
+    #Guardamos el modelo
+    torch.save(unet.state_dict(), 'unet.pth')
+    # Guardamos la lista de pérdidas y la lista de jaccard
+    torch.save(loss_list, 'loss_list.pth')
+    plt.plot(jaccard_list)
+    plt.title('Jaccard')
+    plt.xlabel('Epoch')
+    plt.ylabel('Jaccard')
+    plt.show()
+
+        
         
     
 
