@@ -121,7 +121,7 @@ class Up(torch.nn.Module):
         x = torch.cat([x2, x1], dim=1)
         x =  self.conv(x)
 
-        x = torch.softmax(x, dim=1)
+        #x = torch.softmax(x, dim=1)
         return x
 
 
@@ -131,5 +131,8 @@ class OutConv(torch.nn.Module):
         self.conv = torch.nn.Conv2d(in_channels, out_channels, kernel_size=1)
 
     def forward(self, x):
-        return self.conv(x)
+        x= self.conv(x)
+        x = torch.softmax(x, dim=1)
+        return x
+    
 

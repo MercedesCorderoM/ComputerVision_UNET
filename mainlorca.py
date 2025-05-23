@@ -16,7 +16,7 @@ from torchvision import models
 
 if __name__ == '__main__':
     
-    #Cargamos las imágenes y las máscaras
+    #Te da los nombres de las imágenes de forma asíncrona.
     images = os.listdir('/home/22061506mercedes/ComputerVision_UNET/data_flood/Image')
     masks = os.listdir('/home/22061506mercedes/ComputerVision_UNET/data_flood/Mask')
 
@@ -25,7 +25,7 @@ if __name__ == '__main__':
     image_tensor = list()
     masks_tensor = list()
     for image in images:
-        #Las imágenes están en jpg, por lo que las convertimos a png
+        #Cargamos la imagen y la convertimos a tensor
         dd = PIL.Image.open(f'/home/22061506mercedes/ComputerVision_UNET/data_flood/Image/{image}')
         #Lo pasamos a tensor
         tt = torchvision.transforms.functional.pil_to_tensor(dd)
@@ -34,7 +34,7 @@ if __name__ == '__main__':
         tt = tt[None, :, :, :]
         tt = torch.tensor(tt, dtype=torch.float) / 255.
 
-        if tt.shape != (1, 3, 100, 100):
+        if tt.shape != (1, 3, 100, 100): #Si pones más 100 da una resolución pequeña, probar con 512
             continue
 
         image_tensor.append(tt)
@@ -67,7 +67,7 @@ if __name__ == '__main__':
     dataloader_train_target = torch.utils.data.DataLoader(masks_tensor, batch_size=64)
 
     optim = torch.optim.Adam(unet.parameters(), lr=1e-3)
-    cross_entropy = torch.nn.CrossEntropyLoss()
+    cross_entropy = torch.nn.CrossEntropyLoss() #BinarycrossEntropyLoss() ya mete la softmax
     
     loss_list = list()
     jaccard_list = list()
